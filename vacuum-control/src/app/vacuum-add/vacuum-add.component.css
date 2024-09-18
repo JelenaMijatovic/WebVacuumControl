@@ -1,0 +1,14 @@
+input, button {
+  flex: 0 0 200px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+label {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  text-align: left;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}

@@ -1,0 +1,37 @@
+<div *ngIf="canRead; else warning">
+  <mat-table [dataSource]="users">
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+      <div *ngIf="canUpdate; else normal">
+        <mat-cell *matCellDef="let user"> <a [routerLink]="'/users/edit/' + user.email">{{user.email}}</a> </mat-cell>
+      </div>
+      <ng-template #normal>
+        <mat-cell *matCellDef="let user"> {{user.email}} </mat-cell>
+      </ng-template>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{user.name}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="surname">
+      <mat-header-cell *matHeaderCellDef> Surname </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{user.surname}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="permissions">
+      <mat-header-cell *matHeaderCellDef> Permissions </mat-header-cell>
+      <mat-cell *matCellDef="let user">
+        <tr *ngFor="let perm of user.permissions">
+          <td>{{perm.permission}}</td></tr>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+      <mat-cell *matCellDef="let user"> <button *ngIf="canDelete" (click)="delete(user.email)">Delete</button> </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
+<ng-template #warning>
+  <p>You do not have the permissions to view users!</p>
+</ng-template>

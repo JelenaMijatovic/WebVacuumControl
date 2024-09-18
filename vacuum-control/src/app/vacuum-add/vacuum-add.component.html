@@ -1,0 +1,10 @@
+<div>
+  <form (submit)="save()" class="mb-5">
+    <div class="form-group mb-2">
+      <label for="name">Name　</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="Name" [(ngModel)]="name" required minlength="1"/>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

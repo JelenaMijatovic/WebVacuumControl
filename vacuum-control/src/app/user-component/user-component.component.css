@@ -1,0 +1,7 @@
+table{
+  width: 100%;
+}
+
+.mat-column-permissions {
+  flex: 0 0 50%;
+}

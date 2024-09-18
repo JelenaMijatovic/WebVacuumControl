@@ -1,0 +1,22 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <h2 class="navbar-brand">Vacuum Control　　</h2>
+      <div *ngIf="validToken" class="d-flex">
+        <span>Welcome, {{username}}</span>
+      </div>
+      <br>
+      <div *ngIf="validToken" class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a [routerLink]="'/users'" class="nav-link" aria-current="page">Users　</a>
+          <a *ngIf="canCreate" [routerLink]="'/users/add'" class="nav-link" aria-current="page">Create Users　</a>
+          <a *ngIf="canSearch" [routerLink]="'/vacuums'" class="nav-link" aria-current="page">Vacuums　</a>
+          <a *ngIf="canAdd" [routerLink]="'/vacuums/add'" class="nav-link" aria-current="page">Add Vacuums　</a>
+          <a [routerLink]="'/errors'" class="nav-link" aria-current="page">Errors　</a>
+          <a [routerLink]="'/auth/login'" (click)="logout()" class="nav-link" aria-current="page">Logout</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<br>

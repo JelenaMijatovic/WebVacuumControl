@@ -1,0 +1,12 @@
+.form-group {
+  display: inline;
+  margin:5px;
+}
+
+table{
+  width: 100%;
+}
+
+.mat-column-creationDate {
+  flex: 0 0 20%;
+}

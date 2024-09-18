@@ -1,0 +1,20 @@
+<mat-table [dataSource]="sortedData">
+  <ng-container matSort matColumnDef="date">
+    <mat-header-cell *matHeaderCellDef> Time Of Error </mat-header-cell>
+    <mat-cell *matCellDef="let error"> {{error.date}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="vacuumId">
+    <mat-header-cell *matHeaderCellDef> Vacuum </mat-header-cell>
+    <mat-cell *matCellDef="let error"> {{error.vacuumId}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="action">
+    <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+    <mat-cell *matCellDef="let error"> {{error.action}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="errorText">
+    <mat-header-cell *matHeaderCellDef> Error Message </mat-header-cell>
+    <mat-cell *matCellDef="let error"> {{error.errorText}} </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

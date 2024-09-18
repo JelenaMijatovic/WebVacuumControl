@@ -1,0 +1,88 @@
+<div *ngIf="canSearch; else warning">
+  <div>
+    <form (submit)="updateTable()" class="mb-5">
+      <div class="form-group mb-2">
+        <label for="name">Name: </label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Name" [(ngModel)]="name"/>
+      </div>
+      <div class="form-group mb-2">
+        <label for="status">Status: </label>
+        <select multiple name="status" id="status" [(ngModel)]="status">
+          <option value="ON">On</option>
+          <option value="OFF">Off</option>
+          <option value="DISCHARGING">Discharging</option>
+        </select>
+      </div>
+      <div class="form-group mb-2">
+        <label >From: </label>
+        <input matInput [matDatepicker]="fromDP" (dateChange)="setDate('from', $event)" placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="fromDP"></mat-datepicker-toggle>
+        <mat-datepicker #fromDP></mat-datepicker>
+      </div>
+      <div class="form-group mb-2">
+        <label >To: </label>
+        <input matInput [matDatepicker]="toDP" (dateChange)="setDate('to', $event)" placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="toDP"></mat-datepicker-toggle>
+        <mat-datepicker #toDP></mat-datepicker>
+      </div>
+      <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+  </div>
+  <mat-table [dataSource]="vacuums">
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let vacuum"> {{vacuum.name}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+      <mat-cell *matCellDef="let vacuum"> {{vacuum.status}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="creationDate">
+      <mat-header-cell *matHeaderCellDef> Date Created </mat-header-cell>
+      <mat-cell *matCellDef="let vacuum"> {{vacuum.creationDate}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="remove">
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+      <mat-cell *matCellDef="let vacuum"> <button *ngIf="canRemove"  (click)="delete(vacuum.vacuumId)">Remove</button> </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="start">
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+      <mat-cell *matCellDef="let vacuum"> <button *ngIf="canStart && vacuum.status == 'OFF'" (click)="start(vacuum.vacuumId)">Start</button> </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="stop">
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+      <mat-cell *matCellDef="let vacuum"> <button *ngIf="canStop && vacuum.status == 'ON'" (click)="stop(vacuum.vacuumId)">Stop</button> </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="discharge">
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+      <mat-cell *matCellDef="let vacuum"> <button *ngIf="canDischarge && vacuum.status == 'OFF'" (click)="discharge(vacuum.vacuumId)">Discharge</button> </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
+<form (submit)="schedule()" class="mb-5">
+  <div class="form-group mb-2">
+  <label for="vacuum">Vacuum: </label>
+  <select name="vacuum" id="vacuum" [(ngModel)]="vacuum">
+    <option *ngFor="let v of vacuums" value="{{v.vacuumId}}">{{v.name}}</option>
+  </select>
+  </div>
+  <div class="form-group mb-2">
+  <label for="action">Action: </label>
+  <select name="action" id="action" [(ngModel)]="action">
+    <option value="START">Start</option>
+    <option value="STOP">Stop</option>
+    <option value="DISCHARGE">Discharge</option>
+  </select>
+  </div>
+  <div class="form-group mb-2">
+  <label >Time: </label>
+    <input matInput [min]="minDate" [matDatepicker]="scheduleDP" (dateChange)="setDate('time', $event)" type="datetime-local" placeholder="start date">
+    <mat-datepicker #scheduleDP></mat-datepicker>
+  </div>
+  <button type="submit" class="btn btn-primary">Schedule</button>
+</form>
+<ng-template #warning>
+  <p>You do not have the permissions to view vacuums!</p>
+</ng-template>

@@ -1,0 +1,32 @@
+<div>
+  <form (submit)="save()" class="mb-5">
+    <div class="form-group mb-2">
+      <label for="email">Name　</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="Name" [(ngModel)]="name" required/>
+    </div>
+    <div class="form-group mb-2">
+      <label for="surname">Surname　</label>
+      <input type="text" class="form-control" id="surname" name="surname" placeholder="Surname" [(ngModel)]="surname" required/>
+    </div>
+    <div class="form-group mb-2">
+      <label for="email">Email　</label>
+      <input type="text" class="form-control" id="email" name="email" placeholder="Email" [(ngModel)]="email" required/>
+    </div>
+    <div class="form-group mb-2">
+      <label for="permissions">Permissions　</label>
+      <select multiple name="permissions" id="permissions" [(ngModel)]="permissions">
+        <option value="can_read_users" >Can read users</option>
+        <option value="can_create_users">Can create users</option>
+        <option value="can_update_users">Can update users</option>
+        <option value="can_delete_users">Can delete users</option>
+        <option value="can_search_vacuum">Can search vacuums</option>
+        <option value="can_add_vacuum">Can add vacuums</option>
+        <option value="can_remove_vacuum">Can remove vacuums</option>
+        <option value="can_start_vacuum">Can start vacuums</option>
+        <option value="can_stop_vacuum">Can stop vacuums</option>
+        <option value="can_discharge_vacuum">Can discharge vacuums</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
